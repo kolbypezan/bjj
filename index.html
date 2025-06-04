@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submission Standard - BJJ Apparel & Accessories</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- FAVICON Path Note: For published site, ensure these files are in your website's root directory, 
+         and you might need to use root-relative paths like href="/apple-touch-icon.png" 
+         if these relative paths don't work. Test after uploading to your server. -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
     <style>
         /* CSS Variables for Theming */
         :root {
@@ -347,6 +354,9 @@
 
         /* Hero Section (Home Page) */
         .hero-section {
+            /* IMAGE Path Note: For published site, ensure hero.png is in your website's root directory, 
+               or use a root-relative path like url('/hero.png') if this doesn't work. */
+            background-image: url('hero.png');
             background-size: cover;
             background-position: center;
             height: 70vh;
@@ -413,8 +423,10 @@
         }
         .parallax-bg {
             min-height: 60vh; 
+            /* IMAGE Path Note: For published site, ensure move.png is in your website's root directory, 
+               or use a root-relative path like url('/move.png') if this doesn't work. */
             background-image: url('move.png'); 
-            background-attachment: fixed;
+            background-attachment: scroll; /* Default for mobile */
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
@@ -422,6 +434,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+        @media (min-width: 1024px) { /* Apply fixed attachment for larger screens */
+            .parallax-bg {
+                background-attachment: fixed;
+            }
         }
         .parallax-content-overlay { 
             position: relative;
@@ -462,7 +479,7 @@
             letter-spacing: 0.05em;
             color: var(--text-primary);
         }
-         .search-results-subtitle { /* Used for sub-sections in search results */
+         .search-results-subtitle { 
             font-family: 'Oswald', sans-serif;
             font-size: 1.5rem;
             font-weight: normal;
@@ -470,7 +487,7 @@
             margin-top: 2.5rem;
             margin-bottom: 1.5rem;
             color: var(--text-secondary);
-            display: none; /* Hidden by default, shown by JS if results exist */
+            /* display: none; /* Controlled by JS */
         }
         .mission-section p {
             font-size: 1.125rem;
@@ -690,9 +707,6 @@
             .nav-links { 
                 display: none; 
             }
-            /* .search-toggle-container {  Removed to allow mobile search icon to be part of nav-items-right
-                display: none; 
-            } */
             .mobile-menu-button {
                 display: inline-flex; 
             }
@@ -700,15 +714,7 @@
                 display: flex; 
             }
             .theme-switcher { 
-                margin-left: 0.5rem; /* Adjusted for mobile */
-                /* margin-right: 0.5rem;  No longer needed if search icon is also there */
-            }
-             .nav-items-right { 
-                /* margin-left: auto; No longer needed if brand logo pushes it */
-            }
-            /* Ensure desktop search input is not shown on mobile if it was somehow active */
-            .desktop-search-input.active {
-                display: none;
+                margin-left: 0.5rem; 
             }
         }
     </style>
@@ -727,7 +733,6 @@
                     <button data-page="accessories">Accessories</button>
                     <button data-page="partner">BJJ Foundation</button>
                 </div>
-                <!-- Desktop Search Icon -->
                 <button id="desktopSearchIcon" class="search-icon-button" aria-label="Open Search">
                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
@@ -745,7 +750,6 @@
             </div>
         </div>
         <div class="mobile-nav-links container"> 
-            <!-- Mobile Search Trigger -->
             <button class="mobile-search-trigger" id="mobileSearchIconDropdown" aria-label="Open Search">
                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
@@ -765,7 +769,6 @@
             <button id="closeSearchOverlay" class="close-search-button" aria-label="Close Search">&times;</button>
             <input type="search" id="mainSearchInput" placeholder="Search for products..." autofocus>
             <button id="submitSearchButton" class="submit-search-button">Search</button>
-            <!-- Future: Add a div here for live search results if desired -->
         </div>
     </div>
 
@@ -806,16 +809,16 @@
             </div>
         </section>
 
-        <section id="apparel" class="page-section"> <!-- This section will also host global search results -->
+        <section id="apparel" class="page-section"> 
             <div class="container">
                 <h1 class="section-title" id="apparelPageTitle">Grappling Shirts</h1>
                 <div class="product-grid" id="apparelGrid">
-                    <!-- Apparel products will be injected here by JS -->
+                    <!-- Main grid for apparel OR combined search results -->
                 </div>
-                <div id="searchAccessoriesSection" style="display: none;"> <!-- Used for accessories in global search -->
+                <!-- This section is now only used if explicitly needed later, global search populates apparelGrid directly -->
+                <div id="searchAccessoriesSection" style="display: none;"> 
                     <h2 class="search-results-subtitle" id="searchAccessoriesSubtitle">Matching Accessories</h2>
                     <div class="product-grid" id="searchAccessoriesGrid">
-                        <!-- Accessories search results for global search -->
                     </div>
                 </div>
             </div>
@@ -825,8 +828,7 @@
             <div class="container">
                 <h1 class="section-title" id="accessoriesPageTitle">Accessories</h1>
                 <div class="product-grid" id="accessoriesGrid">
-                    <!-- Accessories will be injected here by JS -->
-                </div>
+                    </div>
             </div>
         </section>
 
@@ -842,7 +844,7 @@
     <footer>
         <div class="container">
             <p>&copy; <span id="currentYear"></span> Submission Standard. All Rights Reserved.</p>
-            <p class="footer-tagline">Train Hard. Fight Easy. Live Well.</p>
+            <p class="footer-tagline">Train Hard. Fight Hard. Live Well.</p>
         </div>
     </footer>
 
@@ -913,7 +915,7 @@
         // --- DOMContentLoaded Event Listener ---
         document.addEventListener('DOMContentLoaded', () => {
             const pageSections = document.querySelectorAll('.page-section');
-            const navButtons = document.querySelectorAll('nav button[data-page], .mobile-nav-links button[data-page], .hero-button[data-page]');
+            const navButtons = document.querySelectorAll('nav button[data-page], .mobile-nav-links button[data-page]:not(.mobile-search-trigger), .hero-button[data-page]');
             const brandLogoLink = document.querySelector('.brand-logo');
             const brandLogoImage = document.getElementById('brandLogoImage'); 
             const mobileMenuButton = document.querySelector('.mobile-menu-button');
@@ -979,7 +981,7 @@
                 pageSections.forEach(section => {
                     section.classList.toggle('active', section.id === pageId);
                 });
-                document.querySelectorAll('nav button[data-page], .mobile-nav-links button[data-page]').forEach(button => {
+                document.querySelectorAll('nav button[data-page], .mobile-nav-links button[data-page]:not(.mobile-search-trigger)').forEach(button => {
                      button.classList.toggle('active', button.dataset.page === pageId);
                 });
                 
@@ -988,51 +990,21 @@
                     mobileNavLinks.classList.remove('open');
                 }
 
-                // Reset titles and accessory search section visibility by default
+                // Always reset titles and accessory search section unless it's a global search
                 if (apparelPageTitle) apparelPageTitle.textContent = originalApparelPageTitle;
-                if (accessoriesPageTitle && pageId !== 'accessories') { 
-                     // Only reset if navigating away or it's not a specific accessories search
-                } else if (accessoriesPageTitle && pageId === 'accessories' && !searchTerm) {
-                     accessoriesPageTitle.textContent = originalAccessoriesPageTitle;
-                }
+                if (accessoriesPageTitle) accessoriesPageTitle.textContent = originalAccessoriesPageTitle;
                 if (searchAccessoriesSection) searchAccessoriesSection.style.display = 'none';
                 if (searchAccessoriesSubtitle) searchAccessoriesSubtitle.style.display = 'none';
 
 
                 if (isGlobalSearch) { 
                     if (apparelPageTitle) apparelPageTitle.textContent = `Search Results for: "${searchTerm}"`;
-                    
-                    const matchingShirts = grapplingShirtsData.filter(item => 
-                        item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                        (item.style && item.style.toLowerCase().includes(searchTerm.toLowerCase())) ||
-                        item.description.toLowerCase().includes(searchTerm.toLowerCase())
-                    );
-                    const matchingAccessories = accessoriesData.filter(item => 
-                        item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                        (item.type && item.type.toLowerCase().includes(searchTerm.toLowerCase())) ||
-                        item.description.toLowerCase().includes(searchTerm.toLowerCase())
-                    );
-
-                    populateProductGrid(apparelGrid, matchingShirts, searchTerm, true); // Pass true for isGlobalSearchContext
-                    
-                    if (matchingAccessories.length > 0) {
-                        populateProductGrid(searchAccessoriesGrid, matchingAccessories, searchTerm, true);
-                        if (searchAccessoriesSection) searchAccessoriesSection.style.display = 'block';
-                        if (searchAccessoriesSubtitle) searchAccessoriesSubtitle.style.display = 'block';
-                    } else {
-                        if (searchAccessoriesGrid) searchAccessoriesGrid.innerHTML = ''; // Clear if no matching accessories
-                        if (searchAccessoriesSection) searchAccessoriesSection.style.display = 'none';
-                    }
-                     // If no results in either category for global search
-                    if (matchingShirts.length === 0 && matchingAccessories.length === 0 && apparelGrid) {
-                        apparelGrid.innerHTML = `<p class="no-results-message">No products found matching "${searchTerm}".</p>`;
-                    }
-
-
+                    const combinedData = [...grapplingShirtsData, ...accessoriesData];
+                    populateProductGrid(apparelGrid, combinedData, searchTerm, true); 
+                    // The searchAccessoriesSection is no longer needed for global search as apparelGrid handles combined results
                 } else if (pageId === 'apparel') {
                     populateProductGrid(apparelGrid, grapplingShirtsData, searchTerm);
                 } else if (pageId === 'accessories') {
-                    if (accessoriesPageTitle) accessoriesPageTitle.textContent = originalAccessoriesPageTitle; 
                     populateProductGrid(accessoriesGrid, accessoriesData, searchTerm);
                 }
             }
@@ -1061,9 +1033,13 @@
                 gridElement.innerHTML = ''; 
                 const lowerSearchTerm = searchTerm.toLowerCase();
                 
-                const filteredData = data.filter(item => {
-                    if (!searchTerm && !isGlobalSearchContext && gridElement.id !== 'featuredProductsGrid') return true; // Show all if no search term for category pages
-                    if (!searchTerm && isGlobalSearchContext) return false; // Don't show anything if global search term is empty for a specific grid
+                let dataToFilter = data; // For global search, 'data' is already combined.
+                                        // For category-specific, 'data' is specific to that category.
+                
+                const filteredData = dataToFilter.filter(item => {
+                    if (!searchTerm) { 
+                        return !isGlobalSearchContext || gridElement.id === 'featuredProductsGrid'; 
+                    }
                     return (item.name.toLowerCase().includes(lowerSearchTerm) ||
                             (item.style && item.style.toLowerCase().includes(lowerSearchTerm)) ||
                             (item.type && item.type.toLowerCase().includes(lowerSearchTerm)) ||
@@ -1071,16 +1047,7 @@
                 });
 
                 if (filteredData.length === 0 && searchTerm) {
-                    // For global search, the overall "no products" message is handled in navigateTo
-                    if (!isGlobalSearchContext) {
-                        gridElement.innerHTML = `<p class="no-results-message">No products found matching "${searchTerm}" in this category.</p>`;
-                    } else if (gridElement.id === 'searchAccessoriesGrid' && data.length > 0 && filteredData.length ===0) {
-                        // If it's the accessory grid in global search and no accessories match, don't show "no products" here
-                        // The main apparelGrid will show the overall "no products" if both are empty
-                    } else if (gridElement.id === 'apparelGrid' && isGlobalSearchContext && filteredData.length === 0) {
-                        // This case is handled by the combined check in navigateTo
-                    }
-
+                     gridElement.innerHTML = `<p class="no-results-message">No products found matching "${searchTerm}".</p>`;
                 } else if (filteredData.length === 0 && !searchTerm && gridElement.id !== 'featuredProductsGrid' && !isGlobalSearchContext) { 
                      gridElement.innerHTML = `<p class="no-results-message">No products to display in this category.</p>`;
                 } else {
@@ -1104,7 +1071,7 @@
             function closeSearchOverlay() {
                 if (searchOverlay) {
                     searchOverlay.classList.remove('active');
-                    if (mainSearchInput) mainSearchInput.value = ''; 
+                    // Do not clear mainSearchInput here, allow user to see their term if they reopen.
                 }
             }
 
@@ -1128,11 +1095,11 @@
             function performSearchFromOverlay() {
                 if (mainSearchInput) {
                     const searchTerm = mainSearchInput.value.trim();
+                    closeSearchOverlay(); 
                     if (searchTerm) {
-                        closeSearchOverlay();
                         navigateTo('apparel', searchTerm, { isGlobalSearch: true });
                     } else {
-                        closeSearchOverlay(); 
+                        navigateTo('apparel'); // Show all apparel if search term is empty
                     }
                 }
             }
