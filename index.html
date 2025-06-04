@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submission Standard - BJJ Apparel & Accessories</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables for Theming */
+        :root {
+            --bg-primary: #111827; /* gray-900 */
+            --bg-secondary: #1f2937; /* gray-800 */
+            --text-primary: #f3f4f6; /* gray-100 */
+            --text-secondary: #d1d5db; /* gray-300 */
+            --text-muted: #9ca3af; /* gray-400 */
+            --accent-primary: #dc2626; /* red-600 */
+            --accent-primary-hover: #b91c1c; /* red-700 */
+            --accent-secondary: #ef4444; /* red-500 */
+            --card-shadow: 0 10px 15px -3px rgba(0,0,0,0.2), 0 4px 6px -2px rgba(0,0,0,0.1);
+            --hero-overlay-bg: rgba(0, 0, 0, 0.6);
+            --button-secondary-bg: #ffffff;
+            --button-secondary-text: #111827; /* gray-900 for text on white button */
+            --button-secondary-hover-bg: #e5e7eb; /* gray-200 */
+            --border-color: #374151; /* gray-700 for dark mode borders */
+            
+            /* Belt Theme Colors */
+            --belt-white-bg: #f0f0f0;
+            --belt-white-border: #cccccc;
+            --belt-white-stripe-bg: #1a1a1a;
+            --belt-black-bg: #1a1a1a;
+            --belt-black-border: #0d0d0d;
+            --belt-black-stripe-bg: #c53030; /* Darker red for black belt stripe */
+        }
+
+        body.light-mode {
+            --bg-primary: #f9fafb; /* gray-50 */
+            --bg-secondary: #ffffff; /* white */
+            --text-primary: #1f2937; /* gray-800 */
+            --text-secondary: #374151; /* gray-700 */
+            --text-muted: #6b7280; /* gray-500 */
+            --card-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --hero-overlay-bg: rgba(0, 0, 0, 0.3); 
+            --button-secondary-bg: #1f2937; 
+            --button-secondary-text: #ffffff; 
+            --button-secondary-hover-bg: #374151; 
+            --border-color: #e5e7eb; /* gray-200 for light mode borders */
+
+            --belt-white-border: #b3b3b3; 
+            --belt-black-border: #000000;
+        }
+
+        /* Basic Reset & Body Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Navbar Styles */
+        nav {
+            background-color: var(--bg-secondary);
+            padding: 0.75rem 0; 
+            box-shadow: var(--card-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .navbar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo {
+            text-decoration: none;
+            cursor: pointer;
+            margin-right: auto; 
+            display: flex; 
+            align-items: center;
+        }
+        .brand-logo img {
+            height: 70px; /* USER REQUESTED LOGO HEIGHT */
+            width: auto;
+            display: block;
+        }
+        
+        .nav-items-right { 
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links { 
+            display: flex; 
+        }
+
+        .nav-links button { 
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-left: 0.75rem; 
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem; 
+            font-size: 0.875rem; 
+            font-weight: 500; 
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            background: none;
+            border: none;
+            cursor: pointer;
+            white-space: nowrap; 
+        }
+
+        .nav-links button:hover,
+        .nav-links button.active {
+            background-color: var(--accent-primary);
+            color: #fff; 
+        }
+        
+        /* Search Icon Toggle Styles */
+        .search-toggle-container {
+            display: flex;
+            align-items: center;
+            margin-left: 0.75rem; 
+        }
+        .search-icon-button {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .search-icon-button svg {
+            width: 1.25rem; 
+            height: 1.25rem;
+            stroke: currentColor;
+        }
+        .search-icon-button:hover {
+            color: var(--text-primary);
+        }
+        .desktop-search-input {
+            padding: 0.4rem 0.8rem;
+            border-radius: 0.375rem;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            width: 0; 
+            opacity: 0;
+            visibility: hidden;
+            margin-left: 0;
+            transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, padding 0.3s ease-in-out, margin-left 0.3s ease-in-out;
+        }
+        .desktop-search-input.active {
+            width: 200px; 
+            opacity: 1;
+            visibility: visible;
+            margin-left: 0.5rem; 
+            padding: 0.4rem 0.8rem;
+        }
+        .desktop-search-input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+
+
+        /* Enhanced Theme Switcher Styles */
+        .theme-switcher {
+            cursor: pointer;
+            padding: 0.25rem;
+            border-radius: 0.375rem; 
+            margin-left: 0.75rem; 
+            display: flex; 
+            align-items: center;
+            justify-content: center;
+            width: 52px; 
+            height: 26px; 
+            border: 1px solid var(--border-color);
+            transition: border-color 0.3s ease;
+            overflow: hidden; 
+        }
+        .belt-icon {
+            display: none; 
+            width: 42px; 
+            height: 16px; 
+            border: 1px solid; 
+            position: relative; 
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            border-radius: 3px; 
+            box-sizing: border-box;
+        }
+        .belt-icon::after { 
+            content: '';
+            position: absolute;
+            right: 0px; 
+            top: 0px;   
+            bottom: 0px;
+            width: 9px; 
+            border-top-right-radius: 2px; 
+            border-bottom-right-radius: 2px;
+            transition: background-color 0.3s ease;
+        }
+
+        .white-belt-icon {
+            background-color: var(--belt-white-bg);
+            border-color: var(--belt-white-border); 
+        }
+        .white-belt-icon::after {
+            background-color: var(--belt-white-stripe-bg); 
+        }
+
+        .black-belt-icon {
+            background-color: var(--belt-black-bg);
+            border-color: var(--belt-black-border); 
+        }
+        .black-belt-icon::after {
+            background-color: var(--belt-black-stripe-bg); 
+        }
+
+        .mobile-menu-button {
+            display: none; 
+            background-color: transparent; 
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+            color: var(--text-muted);
+            border: none;
+            cursor: pointer;
+            margin-left: 0.5rem; 
+        }
+        .mobile-menu-button svg {
+            width: 1.5rem; 
+            height: 1.5rem; 
+            stroke: currentColor;
+        }
+        .mobile-nav-links {
+            display: none; 
+            flex-direction: column;
+            background-color: var(--bg-secondary);
+            padding: 0.5rem 0;
+            border-top: 1px solid var(--border-color);
+        }
+         .mobile-nav-links .search-bar-mobile { 
+            padding: 0.5rem 1rem;
+        }
+        .mobile-nav-links .search-bar-mobile input[type="search"] {
+            width: 100%;
+            padding: 0.4rem 0.8rem;
+            border-radius: 0.375rem;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 0.875rem;
+        }
+        .mobile-nav-links button { 
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 0.375rem;
+            background: none;
+            border: none;
+            text-align: left;
+            width: 100%;
+        }
+        .mobile-nav-links button:hover,
+        .mobile-nav-links button.active {
+            background-color: var(--accent-primary);
+            color: #fff;
+        }
+
+
+        /* Page Section Styles */
+        .page-section {
+            display: none; 
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+        }
+        .page-section.active {
+            display: block;
+        }
+
+        /* Hero Section (Home Page) */
+        .hero-section {
+            background-size: cover;
+            background-position: center;
+            height: 70vh;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            color: #fff; 
+        }
+        .hero-section::before { 
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--hero-overlay-bg);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            padding: 2rem;
+        }
+        .hero-content h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5rem; 
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .hero-content p {
+            font-size: 1.125rem; 
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #e5e7eb; 
+        }
+        .hero-button {
+            background-color: var(--accent-primary);
+            color: #fff;
+            font-weight: 600; 
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem; 
+            font-size: 1.125rem; 
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+            border: none;
+            cursor: pointer;
+        }
+        .hero-button:hover {
+            background-color: var(--accent-primary-hover);
+            transform: scale(1.05);
+        }
+        
+        /* Parallax Showcase Section */
+        .parallax-showcase-section {
+            padding: 0; 
+            background-color: var(--bg-secondary); 
+        }
+        .parallax-bg {
+            min-height: 60vh; 
+            /* Ensure hero.png or move.png is in the same directory as the HTML file, or provide correct relative path */
+            background-image: url('move.png'); /* USER CHANGED */
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .parallax-content-overlay { 
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 3rem 1rem;
+            background-color: rgba(0,0,0,0.5); 
+            border-radius: 8px;
+            color: #fff;
+        }
+        .parallax-content-overlay h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .parallax-content-overlay p {
+            font-size: 1.2rem;
+        }
+
+
+        /* Featured Products & Brand Mission */
+        .featured-section { 
+            padding: 4rem 0;
+            background-color: var(--bg-primary); 
+        }
+        .mission-section { 
+            padding: 4rem 0; /* Keep padding for spacing */
+            background-color: var(--bg-secondary); 
+        }
+        
+        .section-title, .search-results-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem; 
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-primary);
+        }
+         .search-results-subtitle {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            font-weight: normal;
+            text-align: center;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+        }
+        .mission-section p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 1rem auto;
+            text-align: center;
+        }
+
+        /* Product Grid & Cards */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .product-card {
+            background-color: var(--bg-secondary);
+            border-radius: 0.5rem; 
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-color);
+        }
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+        .product-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .product-card-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .product-card-content h3 {
+            font-size: 1.25rem; 
+            font-weight: 600; 
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        .product-card-content .item-style, .product-card-content .item-type {
+            font-size: 0.875rem; 
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+        .product-card-content .item-price {
+            font-size: 1.125rem; 
+            font-weight: bold;
+            color: var(--accent-secondary);
+            margin-bottom: 1rem;
+        }
+        .product-card-content .item-description {
+            font-size: 0.875rem; 
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+        .product-card-button {
+            margin-top: auto;
+            background-color: var(--accent-primary);
+            color: #fff;
+            font-weight: 500; 
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem; 
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        .product-card-button:hover {
+            background-color: var(--accent-primary-hover);
+        }
+        .no-results-message {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 2rem;
+            font-size: 1.1rem;
+            grid-column: 1 / -1; /* Span all columns in grid */
+        }
+
+        /* Partner Page Styles */
+        .partner-page-content {
+            background-color: var(--bg-secondary);
+            border-radius: 0.5rem; 
+            box-shadow: var(--card-shadow);
+            padding: 1.5rem; 
+            border: 1px solid var(--border-color);
+        }
+        .partner-flex-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem; 
+            align-items: center;
+        }
+        .partner-image-container {
+            width: 100%;
+        }
+        .partner-image-container img {
+            width: 100%;
+            max-width: 320px; 
+            height: auto;
+            object-fit: contain;
+            border-radius: 0.5rem; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 0 auto;
+        }
+        .partner-text-container {
+            width: 100%;
+        }
+        .partner-text-container h2 {
+            font-size: 1.875rem; 
+            font-weight: 600; 
+            margin-bottom: 1rem;
+            color: var(--accent-secondary);
+        }
+        .partner-price {
+            font-size: 1.25rem; 
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        .partner-description {
+            font-size: 1.125rem; 
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+        .charity-highlight-box {
+            background-color: var(--accent-primary);
+            color: #fff;
+            padding: 1.5rem;
+            border-radius: 0.5rem; 
+            margin-bottom: 1.5rem;
+        }
+        .charity-highlight-box h3 {
+            font-size: 1.5rem; 
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .partner-about-foundation h3 {
+            font-size: 1.5rem; 
+            font-weight: 600; 
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+        .partner-about-foundation p {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        .partner-purchase-button {
+            margin-top: 2rem;
+            background-color: var(--button-secondary-bg);
+            color: var(--button-secondary-text);
+            font-weight: bold;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem; 
+            font-size: 1.125rem; 
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        .partner-purchase-button:hover {
+            background-color: var(--button-secondary-hover-bg);
+        }
+
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: auto; 
+            border-top: 1px solid var(--border-color);
+        }
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+        footer .footer-tagline {
+            font-size: 0.875rem; 
+            color: var(--text-muted);
+        }
+
+        /* Responsive Adjustments */
+        @media (min-width: 768px) { 
+            .hero-content h1 {
+                font-size: 3.75rem; 
+            }
+            .hero-content p {
+                font-size: 1.25rem; 
+            }
+            .nav-links {
+                display: flex; 
+            }
+            .mobile-menu-button {
+                display: none; 
+            }
+            .partner-flex-container {
+                flex-direction: row;
+            }
+            .partner-image-container {
+                width: 33.333333%; 
+            }
+            .partner-text-container {
+                width: 66.666667%; 
+            }
+        }
+        @media (max-width: 767px) { 
+            .nav-links { 
+                display: none; 
+            }
+            .search-toggle-container { 
+                display: none; 
+            }
+            .mobile-menu-button {
+                display: inline-flex; 
+            }
+            .mobile-nav-links.open {
+                display: flex; 
+            }
+            .theme-switcher { 
+                margin-left: auto; 
+                margin-right: 0.5rem; 
+            }
+             .nav-items-right { 
+                margin-left: auto; 
+            }
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen"> 
+
+    <nav>
+        <div class="container navbar-content">
+            <a href="#" class="brand-logo" data-page="home">
+                <img src="whitelogo.png" alt="Submission Standard Logo" id="brandLogoImage">
+            </a>
+            <div class="nav-items-right">
+                <div class="nav-links"> 
+                    <button data-page="home" class="active">Home</button>
+                    <button data-page="apparel">Apparel</button>
+                    <button data-page="accessories">Accessories</button>
+                    <button data-page="partner">BJJ Foundation</button>
+                </div>
+                <div class="search-toggle-container">
+                    <button id="searchIconToggle" class="search-icon-button" aria-label="Toggle Search">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                        </svg>
+                    </button>
+                    <input type="search" id="desktopSearchInput" class="desktop-search-input" placeholder="Search gear...">
+                </div>
+                <div class="theme-switcher" title="Toggle Theme"> 
+                    <span class="belt-icon white-belt-icon"></span> 
+                    <span class="belt-icon black-belt-icon"></span> 
+                </div>
+                <button class="mobile-menu-button" aria-label="Open menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-nav-links container"> 
+            <div class="search-bar-mobile"> 
+                 <input type="search" id="mobileSearchInput" placeholder="Search gear...">
+            </div>
+            <button data-page="home" class="active">Home</button>
+            <button data-page="apparel">Apparel</button>
+            <button data-page="accessories">Accessories</button>
+            <button data-page="partner">BJJ Foundation</button>
+        </div>
+    </nav>
+
+    <main class="flex-grow">
+        <section id="home" class="page-section active">
+            <div class="hero-section" style="background-image: url('hero.png');">
+                <div class="hero-content">
+                    <h1>Elevate Your Ground Game</h1>
+                    <p>Premium BJJ apparel and accessories designed for warriors, by warriors.</p>
+                    <button class="hero-button" data-page="apparel">Shop Apparel</button>
+                </div>
+            </div>
+            
+            <div class="mission-section"> 
+                <div class="container">
+                    <h2 class="section-title">Our Philosophy</h2>
+                    <p>We believe that Brazilian Jiu-Jitsu is more than just a sport – it's a path to self-improvement, discipline, and community. Our gear is crafted to support your journey, providing unparalleled quality and style.</p>
+                    <p>From the mats to the street, represent your passion with Submission Standard.</p>
+                </div>
+            </div>
+
+            <section class="parallax-showcase-section">
+                 <div class="parallax-bg">
+                    <div class="parallax-content-overlay container">
+                        <h2>Experience The Flow</h2>
+                        <p>Gear That Moves With You.</p>
+                    </div>
+                </div>
+            </section>
+
+            <div class="featured-section">
+                <div class="container">
+                    <h2 class="section-title">Featured Gear</h2>
+                    <div class="product-grid" id="featuredProductsGrid">
+                        </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="apparel" class="page-section"> <!-- This section will also host global search results -->
+            <div class="container">
+                <h1 class="section-title" id="apparelPageTitle">Grappling Shirts</h1>
+                <div class="product-grid" id="apparelGrid">
+                    <!-- Apparel products will be injected here by JS -->
+                </div>
+                <div id="searchAccessoriesSection" style="display: none;"> <!-- NEW: For accessories in global search -->
+                    <h2 class="search-results-subtitle">Matching Accessories</h2>
+                    <div class="product-grid" id="searchAccessoriesGrid">
+                        <!-- Accessories search results for global search -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="accessories" class="page-section">
+            <div class="container">
+                <h1 class="section-title" id="accessoriesPageTitle">Accessories</h1>
+                <div class="product-grid" id="accessoriesGrid">
+                    <!-- Accessories will be injected here by JS -->
+                </div>
+            </div>
+        </section>
+
+        <section id="partner" class="page-section">
+            <div class="container">
+                <h1 class="section-title">Our Commitment: The BJJ Foundation Patch</h1>
+                <div class="partner-page-content" id="partnerContent">
+                    </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="currentYear"></span> Submission Standard. All Rights Reserved.</p>
+            <p class="footer-tagline">Train Hard. Fight Easy. Live Well.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Mock Data ---
+        const grapplingShirtsData = [
+          { id: 'gs1', name: 'Stealth Flow Grappling Shirt', style: 'Ranked Series - Black Belt', price: '49.99', imageUrl: 'https://placehold.co/600x600/1a1a1a/ffffff?text=Stealth+Flow+Shirt&font=roboto', description: 'Ultra-lightweight, moisture-wicking fabric designed for peak performance and comfort during intense rolls. Keywords: rashguard, training, competition' },
+          { id: 'gs2', name: 'Ronin Spirit Grappling Shirt', style: 'Artist Collab Series', price: '54.99', imageUrl: 'https://placehold.co/600x600/333333/ffffff?text=Ronin+Spirit+Shirt&font=roboto', description: 'Durable and breathable, featuring unique artwork inspired by the way of the warrior. Keywords: samurai, art, unique design' },
+          { id: 'gs3', name: 'Apex Predator Grappling Shirt', style: 'Competition Cut', price: '52.99', imageUrl: 'https://placehold.co/600x600/000000/ffffff?text=Apex+Predator+Shirt&font=roboto', description: 'Engineered for a snug fit, minimizing grips. Reinforced stitching for maximum durability. Keywords: performance, tight fit' },
+          { id: 'gs4', name: 'Zenith Guard Grappling Shirt', style: 'Minimalist Series - White', price: '47.99', imageUrl: 'https://placehold.co/600x600/f0f0f0/333333?text=Zenith+Guard+Shirt&font=roboto', description: 'Clean design, superior comfort. Perfect for training and everyday wear. Keywords: simple, classic, comfortable' }
+        ];
+
+        const accessoriesData = [
+          { id: 'patch1', name: 'Classic BJJ Crest Patch', type: 'Gi Patch', price: '12.99', imageUrl: 'https://placehold.co/400x400/2c3e50/ffffff?text=Crest+Patch&font=roboto', description: 'High-quality embroidered patch to customize your gi or gear. Keywords: emblem, logo, traditional' },
+          { id: 'patch2', name: 'Foundation Charity Patch', type: 'Gi Patch (Charity)', price: '15.00', imageUrl: 'https://placehold.co/400x400/e74c3c/ffffff?text=Foundation+Patch&font=roboto', description: 'Support the BJJ community. 100% of profits go to the BJJ Foundation. Keywords: support, give back, community', isCharity: true },
+          { id: 'patch3', name: 'Oni Mask Tactical Patch', type: 'Gi Patch', price: '14.99', imageUrl: 'https://placehold.co/400x400/c0392b/ffffff?text=Oni+Patch&font=roboto', description: 'Intricate Oni mask design, durable woven construction. Keywords: demon, Japanese, cool patch' },
+          { id: 'sticker1', name: 'Roll Till The Wheels Fall Off Sticker', type: 'Vinyl Sticker', price: '4.99', imageUrl: 'https://placehold.co/400x400/95a5a6/ffffff?text=Roll+Sticker&font=roboto', description: 'Durable vinyl sticker for your laptop, water bottle, or car. Keywords: decal, motivation, lifestyle' }
+        ];
+
+        const foundationPatchData = accessoriesData.find(item => item.isCharity);
+        
+        // --- Helper Function to Create Product Card HTML ---
+        function createProductCardHTML(item) {
+            return `
+                <div class="product-card">
+                    <img src="${item.imageUrl}" alt="${item.name}" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/333333?text=Image+Not+Found&font=roboto';">
+                    <div class="product-card-content">
+                        <h3>${item.name}</h3>
+                        ${item.style ? `<p class="item-style">${item.style}</p>` : ''}
+                        ${item.type ? `<p class="item-type">${item.type}</p>` : ''}
+                        <p class="item-price">$${item.price}</p>
+                        <p class="item-description">${item.description.split(' Keywords:')[0]}</p> 
+                        <button class="product-card-button" data-item-id="${item.id}" data-is-charity="${item.isCharity || false}">
+                            ${item.isCharity ? 'Learn More & Support' : 'View Details'}
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // --- Helper Function to Create Partner Page HTML ---
+        function createPartnerPageHTML(item) {
+            if (!item) return '<p>Charity item details not available.</p>';
+            return `
+                <div class="partner-flex-container">
+                    <div class="partner-image-container">
+                        <img src="${item.imageUrl}" alt="${item.name}" onerror="this.onerror=null;this.src='https://placehold.co/600x600/cccccc/333333?text=Image+Not+Found&font=roboto';">
+                    </div>
+                    <div class="partner-text-container">
+                        <h2>${item.name}</h2>
+                        <p class="partner-price">$${item.price}</p>
+                        <p class="partner-description">${item.description.split(' Keywords:')[0]}</p>
+                        <div class="charity-highlight-box">
+                            <h3>100% of Profits to The BJJ Foundation</h3>
+                            <p>Every purchase of this exclusive patch directly supports The BJJ Foundation, an organization dedicated to making Brazilian Jiu-Jitsu accessible to underprivileged youth and supporting athletes in need.</p>
+                        </div>
+                        <div class="partner-about-foundation">
+                            <h3>About The BJJ Foundation (Example)</h3>
+                            <p>The BJJ Foundation believes in the transformative power of Jiu-Jitsu. They provide scholarships, equipment, and mentorship to young individuals who might not otherwise have the opportunity to train. They also offer support programs for competitors facing financial hardship.</p>
+                            <p>By purchasing this patch, you're not just getting a high-quality piece of gear; you're investing in the future of the BJJ community and helping to spread the art we love.</p>
+                        </div>
+                        <button class="partner-purchase-button">Purchase Patch & Support</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- DOMContentLoaded Event Listener ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const pageSections = document.querySelectorAll('.page-section');
+            const navButtons = document.querySelectorAll('nav button[data-page], .mobile-nav-links button[data-page], .hero-button[data-page]');
+            const brandLogoLink = document.querySelector('.brand-logo');
+            const brandLogoImage = document.getElementById('brandLogoImage'); 
+            const mobileMenuButton = document.querySelector('.mobile-menu-button');
+            const mobileNavLinks = document.querySelector('.mobile-nav-links');
+            const themeSwitcher = document.querySelector('.theme-switcher');
+            const body = document.body;
+            const whiteBeltIcon = themeSwitcher.querySelector('.white-belt-icon');
+            const blackBeltIcon = themeSwitcher.querySelector('.black-belt-icon');
+            
+            const searchIconToggle = document.getElementById('searchIconToggle');
+            const desktopSearchInput = document.getElementById('desktopSearchInput');
+            const mobileSearchInput = document.getElementById('mobileSearchInput');
+
+            const apparelGrid = document.getElementById('apparelGrid');
+            const accessoriesGrid = document.getElementById('accessoriesGrid');
+            const featuredProductsGrid = document.getElementById('featuredProductsGrid');
+            const partnerContent = document.getElementById('partnerContent');
+            const apparelPageTitle = document.getElementById('apparelPageTitle');
+            const accessoriesPageTitle = document.getElementById('accessoriesPageTitle'); // Added for accessories page title
+            const searchAccessoriesSection = document.getElementById('searchAccessoriesSection'); // Renamed from ...OnApparelPage
+            const searchAccessoriesGrid = document.getElementById('searchAccessoriesGrid'); // Renamed
+
+
+            // Function to apply theme and update belt icon & logo
+            function applyTheme(theme) {
+                if (theme === 'light') {
+                    body.classList.add('light-mode');
+                    if(whiteBeltIcon) whiteBeltIcon.style.display = 'none'; 
+                    if(blackBeltIcon) blackBeltIcon.style.display = 'block'; 
+                    if(themeSwitcher) themeSwitcher.setAttribute('title', 'Switch to Dark Mode');
+                    if(brandLogoImage) brandLogoImage.src = 'logo.png'; // Light mode logo
+                } else { 
+                    body.classList.remove('light-mode');
+                    if(whiteBeltIcon) whiteBeltIcon.style.display = 'block'; 
+                    if(blackBeltIcon) blackBeltIcon.style.display = 'none';
+                    if(themeSwitcher) themeSwitcher.setAttribute('title', 'Switch to Light Mode');
+                    if(brandLogoImage) brandLogoImage.src = 'whitelogo.png'; // Dark mode logo
+                }
+            }
+
+            const savedTheme = localStorage.getItem('bjjBrandTheme') || 'dark';
+            applyTheme(savedTheme); 
+
+            if (themeSwitcher) {
+                themeSwitcher.addEventListener('click', () => {
+                    const newTheme = body.classList.contains('light-mode') ? 'dark' : 'light';
+                    applyTheme(newTheme);
+                    localStorage.setItem('bjjBrandTheme', newTheme);
+                });
+            }
+            
+            const originalApparelPageTitle = "Grappling Shirts";
+            const originalAccessoriesPageTitle = "Accessories";
+
+            function navigateTo(pageId, searchTerm = '', options = {}) { 
+                const { keepMobileMenuOpen = false, isGlobalSearch = false } = options;
+
+                pageSections.forEach(section => {
+                    section.classList.toggle('active', section.id === pageId);
+                });
+                document.querySelectorAll('nav button[data-page], .mobile-nav-links button[data-page]').forEach(button => {
+                     button.classList.toggle('active', button.dataset.page === pageId);
+                });
+                
+                window.scrollTo(0, 0);
+                if (mobileNavLinks.classList.contains('open') && !keepMobileMenuOpen) {
+                    mobileNavLinks.classList.remove('open');
+                }
+
+                // Reset titles and accessory search section visibility by default
+                if (apparelPageTitle) apparelPageTitle.textContent = originalApparelPageTitle;
+                if (accessoriesPageTitle && pageId !== 'accessories') { // Only reset if not on accessories page
+                    // No specific title change needed for accessories page unless it becomes a search result page
+                }
+                if (searchAccessoriesSection) searchAccessoriesSection.style.display = 'none';
+
+
+                if (isGlobalSearch) { // Handle global search results on the 'apparel' page section
+                    if (apparelPageTitle) apparelPageTitle.textContent = `Search Results for: "${searchTerm}"`;
+                    populateProductGrid(apparelGrid, grapplingShirtsData, searchTerm);
+                    populateProductGrid(searchAccessoriesGrid, accessoriesData, searchTerm);
+                    if (searchAccessoriesSection) searchAccessoriesSection.style.display = 'block';
+                } else if (pageId === 'apparel') {
+                    populateProductGrid(apparelGrid, grapplingShirtsData, searchTerm);
+                } else if (pageId === 'accessories') {
+                    if (accessoriesPageTitle) accessoriesPageTitle.textContent = originalAccessoriesPageTitle; // Ensure title is correct
+                    populateProductGrid(accessoriesGrid, accessoriesData, searchTerm);
+                }
+                
+                 if (!isGlobalSearch && pageId !== 'apparel' && pageId !== 'accessories' && !searchTerm) {
+                    if(desktopSearchInput && desktopSearchInput.classList.contains('active')) {
+                        desktopSearchInput.classList.remove('active');
+                        desktopSearchInput.value = '';
+                    }
+                    if(mobileSearchInput) mobileSearchInput.value = '';
+                }
+            }
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault(); 
+                    const page = button.dataset.page;
+                    navigateTo(page); 
+                });
+            });
+            
+            brandLogoLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                navigateTo(brandLogoLink.dataset.page); 
+            });
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileNavLinks.classList.toggle('open');
+            });
+
+            function populateProductGrid(gridElement, data, searchTerm = '') {
+                if (!gridElement) return;
+                gridElement.innerHTML = ''; 
+                const lowerSearchTerm = searchTerm.toLowerCase();
+                const filteredData = data.filter(item => {
+                    return (item.name.toLowerCase().includes(lowerSearchTerm) ||
+                            (item.style && item.style.toLowerCase().includes(lowerSearchTerm)) ||
+                            (item.type && item.type.toLowerCase().includes(lowerSearchTerm)) ||
+                            item.description.toLowerCase().includes(lowerSearchTerm));
+                });
+
+                if (filteredData.length === 0 && searchTerm) {
+                    gridElement.innerHTML = `<p class="no-results-message">No products found matching "${searchTerm}" in this category.</p>`;
+                } else if (filteredData.length === 0 && !searchTerm && gridElement.id !== 'featuredProductsGrid') { // Avoid showing "no products" on featured if empty
+                     gridElement.innerHTML = `<p class="no-results-message">No products to display in this category.</p>`;
+                } else {
+                    filteredData.forEach(item => {
+                        gridElement.innerHTML += createProductCardHTML(item);
+                    });
+                }
+            }
+            
+            if (searchIconToggle && desktopSearchInput) {
+                searchIconToggle.addEventListener('click', (e) => {
+                    e.stopPropagation(); 
+                    desktopSearchInput.classList.toggle('active');
+                    if (desktopSearchInput.classList.contains('active')) {
+                        desktopSearchInput.focus();
+                    } else {
+                        desktopSearchInput.value = ''; 
+                        const currentPageId = document.querySelector('.page-section.active')?.id;
+                        if(currentPageId === 'apparel') navigateTo('apparel', '', {isGlobalSearch: false}); 
+                        // If on accessories, and search is closed, refresh accessories
+                        if(currentPageId === 'accessories') populateProductGrid(accessoriesGrid, accessoriesData);
+                    }
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (desktopSearchInput.classList.contains('active') && 
+                        !desktopSearchInput.contains(e.target) && 
+                        !searchIconToggle.contains(e.target)) {
+                        desktopSearchInput.classList.remove('active');
+                    }
+                });
+            }
+
+            function handleSearchTrigger(inputElement) {
+                const searchTerm = inputElement.value;
+                const currentPageElement = document.querySelector('.page-section.active');
+                const currentPageId = currentPageElement ? currentPageElement.id : 'home';
+
+                let targetPageForSearch = 'apparel'; // Default target for global search is the apparel page section
+                let isGlobalSearchAction = true; 
+                let shouldKeepMobileMenuOpen = false;
+
+                if (inputElement.id === 'mobileSearchInput') { // Search from mobile menu
+                    if (currentPageId === 'apparel') {
+                        targetPageForSearch = 'apparel';
+                        isGlobalSearchAction = false; // It's a category-specific search
+                        shouldKeepMobileMenuOpen = true;
+                    } else if (currentPageId === 'accessories') {
+                        targetPageForSearch = 'accessories';
+                        isGlobalSearchAction = false; // It's a category-specific search
+                        shouldKeepMobileMenuOpen = true;
+                    }
+                    // If on home/partner from mobile, it's a global search, target 'apparel', menu will close.
+                } else { // Desktop search
+                    if (currentPageId === 'apparel') {
+                        targetPageForSearch = 'apparel';
+                        isGlobalSearchAction = false;
+                    } else if (currentPageId === 'accessories') {
+                        targetPageForSearch = 'accessories';
+                        isGlobalSearchAction = false;
+                    }
+                    // If on home/partner from desktop, it's a global search, target 'apparel'.
+                }
+                navigateTo(targetPageForSearch, searchTerm, { keepMobileMenuOpen: shouldKeepMobileMenuOpen, isGlobalSearch: isGlobalSearchAction });
+            }
+
+
+            if(desktopSearchInput) {
+                desktopSearchInput.addEventListener('input', (e) => handleSearchTrigger(desktopSearchInput));
+            }
+            if(mobileSearchInput) {
+                 mobileSearchInput.addEventListener('input', (e) => handleSearchTrigger(mobileSearchInput));
+            }
+
+
+            // Initial population
+            populateProductGrid(featuredProductsGrid, [...grapplingShirtsData.slice(0, 2), ...(foundationPatchData ? [foundationPatchData] : []) ]);
+            populateProductGrid(apparelGrid, grapplingShirtsData); 
+            populateProductGrid(accessoriesGrid, accessoriesData); 
+            
+            if (partnerContent && foundationPatchData) {
+                partnerContent.innerHTML = createPartnerPageHTML(foundationPatchData);
+            }
+            
+            document.addEventListener('click', function(event) {
+                if (event.target.matches('.product-card-button')) {
+                    const isCharity = event.target.dataset.isCharity === 'true';
+                    if (isCharity) {
+                        navigateTo('partner');
+                    } else {
+                        const product = grapplingShirtsData.find(s => s.id === event.target.dataset.itemId) || accessoriesData.find(a => a.id === event.target.dataset.itemId);
+                        if (product && grapplingShirtsData.includes(product)) {
+                             navigateTo('apparel');
+                        } else if (product && accessoriesData.includes(product)) {
+                             navigateTo('accessories');
+                        }
+                    }
+                }
+            });
+
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>
